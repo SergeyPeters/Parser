@@ -1,12 +1,11 @@
 import numpy as np
 import pygame as pg
-# import pygame.camera
 import time
 from PIL import Image, ImageDraw, ImageFont
 
 
 class Matrix:
-    def __init__(self, app, font_size=8):
+    def __init__(self, app, font_size=10):
         self.app = app
         self.FONT_SIZE = font_size
         self.SIZE = self.ROWS, self.COLS = app.HEIGHT // font_size, app.WIDTH // font_size
@@ -18,14 +17,9 @@ class Matrix:
         self.cols_speed = np.random.randint(100, 750, size=self.SIZE)
         self.prerendered_chars = self.get_prerendered_chars()
 
-        self.path = 'img/gradient.jpg'
-        self.font = ImageFont.truetype('arial.ttf', size=self.app.WIDTH//4) #1
+        self.path = 'img/black.jpg'
+        self.font = ImageFont.truetype('arial.ttf', size=20+self.app.WIDTH//20) #1
 
-    # def get_frame(self):
-    #     image = pygame.image.load(self.image)
-    #     image = pg.transform.scale(image, self.app.RES)
-    #     pixel_array = pg.pixelarray.PixelArray(image)
-    #     return pixel_array
 
     def add_time(self):
         img = Image.open(self.path)  # >1
@@ -84,16 +78,13 @@ class Matrix:
 
 class MatrixVision:
     def __init__(self):
-        self.RES = self.WIDTH, self.HEIGHT = 960, 720
+        self.RES = self.WIDTH, self.HEIGHT = 1920, 1000
         pg.init()
         self.screen = pg.display.set_mode(self.RES)
         self.surface = pg.Surface(self.RES)
         self.clock = pg.time.Clock()
         self.matrix = Matrix(self)
 
-        # pygame.camera.init()
-        # self.cam = pygame.camera.Camera(pygame.camera.list_cameras()[0])
-        # self.cam.start()
 
     def draw(self):
         self.surface.fill(pg.Color('black'))
